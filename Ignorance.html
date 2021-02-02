@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ignorance Study</title>
+        <script src="jspsych-6.2.0/jspsych.js"></script>
+        <script src="jspsych-6.2.0/plugins/jspsych-image-button-response.js"></script>
+        <script src="jspsych-6.2.0/plugins/jspsych-instructions.js"></script>
+        <script src="jspsych-6.2.0/plugins/jspsych-html-button-response.js"></script>
+        <script src="jspysch-6.2.0/plugins/jspsych-audio-button-response.js"></script>
+        <link href="jspsych-6.2.0/css/jspsych.css" rel="stylesheet" type="text/css">
+    </head>
+    <body></body>
+    <script>
+
+        /* -------- Set up -------- */
+         /* create timeline */
+         var timeline = [];
+
+         var images = [
+        // Images for buttons 
+        'buttons/yes.png',
+        'buttons/no.png',
+        'buttons/a_little_surprised.png',
+        'buttons/very_surprised.png',
+        'buttons/a_little_not_surprised.png',
+        'buttons/very_not_surprised.png',
+
+        // Images for story 
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide1.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide2.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide3.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide4.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide5.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide6.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide7.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide8.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide9.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide10.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide11.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide12.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide13.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide14.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide15.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide16.png',
+        'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide17.png',
+        ];
+
+        var sound = [
+            // Add all of the sound clips here. Also add the JsPsych input for sound to the head!
+           
+        ];
+
+        /* define welcome message trial */
+        var welcome = {
+            type: "html-keyboard-response",
+            stimulus: "Welcome to the experiment. Press any key to begin."
+        };
+        timeline.push(welcome);
+
+        /* define instructions trial */
+        var instructions = {
+            type: 'instructions',
+            pages: ['<p>In this experiment you will read/listen to a story and answer some questions.</p><p>Click next to begin.</p>',
+            '<p>When asked a question, two buttons (e.g. yes and no) will apare on the screen and you click on the one you prefer.</p>',
+            '<p>When your ready, click the next button to begin.</p>'],
+            show_clickable_nav: true
+        }
+        timeline.push(instructions);
+
+        /* Practice trails - prove they understand the yes and no buttons. Add sound for the instructions. */
+        var practice_yes = {
+            type: 'html-button-response',
+            stimulus: ['<p>To start with we will do two practice trails.</p><p> The yes button is the big green button that says YES. Can you click the yes button? </p>',], 
+            // The line below is the one that isn't displying the buttons 
+            choices: [`<table align="center"><tr><td><img src= photos/buttons/yes.png class="button-scale-tbl"></img></td></tr>`,`<table align="center"><tr><td><img src=photos/buttons/no.png class="button-scale-tbl"></img></td></tr></table>`,],
+       
+            // Make sure that the child CANNOT move on unless thay have clicked the correct button
+        }
+        timeline.push(practice_yes);
+
+        var practice_no = {
+            type: 'html-button-response',
+            stimulus:['<p> The no button is the big red button that says No. Can you click the no button? </p>',],
+            // The line below is the one that isn't displying the buttons 
+            choices: [`<table align="center"><tr><td><img src= photos/buttons/yes.png class="button-scale-tbl"></img></td></tr>`,`<table align="center"><tr><td><img src=photos/buttons/no.png class="button-scale-tbl"></img></td></tr></table>`,],
+            
+           // Make sure that the child CANNOT move on unless thay have clicked the correct button
+        }
+        timeline.push(practice_no);
+
+
+        var final_instructions = {
+            type: 'html-button-response',
+            stimulus: ['<p> Wow good job! You will use both of these buttons to answer questions in the story.</p><p>Click YES to begin.</p>',],
+            choices: [`<table align="center"><tr><td><img src= photos/buttons/yes.png class="button-scale-tbl"></img></td></tr>`,`<table align="center"><tr><td><img src=photos/buttons/no.png class="button-scale-tbl"></img></td></tr></table>`,],
+        }
+        timeline.push(final_instructions);
+
+        /* Each slide has the same yes and no buttons to test for understanding. The last question will have different faces 
+        on the buttons to represent 'suprised', 'not surprised', etc. Will need to add sound later!  */
+
+        var part1 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide1.png',
+            choices: ['YES', 'NO'],
+            prompt: " ", // Blank slide
+            post_trial_gap: 500
+        }
+        timeline.push(part1);
+
+        var part2 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide2.png',
+            choices: ['YES', 'NO'],
+            prompt: "This is Anna.",
+            post_trial_gap: 500
+        }
+        timeline.push(part2); 
+        
+        var part3 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide3.png',
+            choices: ['YES', 'NO'],
+            prompt: "And this is Katie.",
+            post_trial_gap: 500
+        }
+        timeline.push(part3);
+
+        var part4 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide4.png',
+            choices: ['YES', 'NO'],
+            prompt: "This is Anna. She really likes her toy duck. Can you see her with her duck? It’s her favourite toy!",
+            post_trial_gap: 500
+        }
+        timeline.push(part4);
+
+        var part5 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide5.png',
+            choices: ['YES', 'NO'],
+            prompt: "Oh, it looks like Anna has gone for a walk, and it seems that she has left her duck behind. See, she left her duck right there on the table and now it is all alone. Can you point to Anna's duck?",
+            post_trial_gap: 500
+        }
+        timeline.push(part5);
+
+        var part6 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide6.png',
+            choices: ['YES', 'NO'],
+            prompt: "Look, this is Katie. She has come in while Anna is out for a walk. I wonder what she is going to do?",
+            post_trial_gap: 500
+        }
+        timeline.push(part6);
+
+        var part7 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide7.png',
+            choices: ['YES', 'NO'],
+            prompt: "Katie has picked up Anna’s duck. Do you see Katie with the duck?",
+            post_trial_gap: 500
+        }
+        timeline.push(part7);
+
+        var part8 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide8.png',
+            choices: ['YES', 'NO'],
+            prompt: "Now Katie opened all these boxes to see if they are empty. She is lifting them up now. Are they all empty?",
+            post_trial_gap: 500
+        }
+        timeline.push(part8);
+
+        var part9 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide8.png',
+            choices: ['YES', 'NO'],
+            prompt: "All of these boxes are empty right now!",
+            post_trial_gap: 500
+        }
+        timeline.push(part9);
+
+        var part10 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide9.png',
+            choices: ['YES', 'NO'],
+            prompt: "Now she has lowered the boxes down again and she’s still holding Anna’s duck. Let’s see what happens next",
+            post_trial_gap: 500
+        }
+        timeline.push(part10);
+
+        var part11 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide10.png',
+            choices: ['YES', 'NO'],
+            prompt: "It looks like Katie is putting Anna’s duck in one of the boxes! Hmm, Anna is still outside on a walk… Do you think Anna can see Katie from where she is? No, Anna is gone right now so she can’t see what Katie is doing!",
+            post_trial_gap: 500
+        }
+        timeline.push(part11);
+
+        var part12 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide10.png',
+            choices: ['YES', 'NO'],
+            prompt: "No, Anna is gone right now so she can’t see what Katie is doing!",
+            post_trial_gap: 500
+        }
+        timeline.push(part12);
+
+        var part13 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide11.png',
+            choices: ['YES', 'NO'],
+            prompt: "See? Katie put Anna’s duck in one of the boxes. Do you see where she's putting it?",
+            post_trial_gap: 500
+        }
+        timeline.push(part13);
+
+        var part14 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide12.png',
+            choices: ['YES', 'NO'],
+            prompt: "Katie’s closed all the boxes.", 
+            post_trial_gap: 500
+        }
+        timeline.push(part14);
+
+        var part15 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide13.png',
+            choices: ['YES', 'NO'],
+            prompt: "Oh Katie's gone.",
+            post_trial_gap: 500
+        }
+        timeline.push(part15);
+
+        var part16 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide14.png',
+            choices: ['YES', 'NO'],
+            prompt: "Oh, Anna is back. She is looking for her duck! Let’s see where she looks first.",
+            post_trial_gap: 500
+        }
+        timeline.push(part16);
+
+        /* Suprise question */
+        var part17 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide15.png',
+            choices: ['SURPRISED', 'NOT SURPRISED'],
+            prompt: "I have a question for you. Are you surprised or not surprised that Anna looked in that box first?",
+            post_trial_gap: 500
+
+            // Logic that analyses the responce so that the participant gets the follow up question that matches their responce 
+        }
+
+        /* Not surpriesd follow up question */
+        timeline.push(part17);
+        var part18_notSurprised = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide15.png',
+            choices: ['A LITTLE NOT SURPRISED', 'VERY NOT SURPRISED'],
+            prompt: "Were you a little not surprised, or very not surprised?",
+            post_trial_gap: 500
+        }
+        timeline.push(part18_notSurprised);
+
+        /* Surpriesd follow up question */
+        var part18_surprised = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide15.png',
+            choices: ['A LITTLE SURPRISED', 'VERY SURPRISED'],
+            prompt: "Were you a little surprised, or very surprised?",
+            post_trial_gap: 500
+        }
+        timeline.push(part18_surprised);
+
+        var part19 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide16.png',
+            choices: ['YES', 'NO'],
+            prompt: "Yay! Anna looked in all of the boxes and she found her duck! She is happy now.",
+            post_trial_gap: 500
+        }
+        timeline.push(part19);
+
+        var part20 = {
+            type: 'image-button-response',
+            stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide17.png',
+            choices: ['YES', 'NO'],
+            prompt: "We’re all done now! Great job listening and answering my questions", // Blank slide
+            post_trial_gap: 500
+        }
+        timeline.push(part20);
+
+        var debrief = {
+            type: 'instructions',
+            pages: ['<p>Thank you for participating in this experiment! </p><p>Click next to read more about the experiment.</p>',
+            '<p>The study was investigating.......</p>',
+            '<p>More information about study....</p><p>Thanks again!</p>'],
+            show_clickable_nav: true
+        }
+        timeline.push(debrief);
+
+        /* start the experiment */
+        jsPsych.init({
+            timeline: timeline,
+            on_finish: function() {
+                jsPsych.data.displayData();
+            }
+        });
+
+    </script>
+</html>
