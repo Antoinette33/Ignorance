@@ -1,23 +1,26 @@
+
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Ignorance Study</title>
-        <script src="jspsych-6.2.0/jspsych.js"></script>
-        <script src="jspsych-6.2.0/plugins/jspsych-image-button-response.js"></script>
-        <script src="jspsych-6.2.0/plugins/jspsych-instructions.js"></script>
-        <script src="jspsych-6.2.0/plugins/jspsych-html-button-response.js"></script>
-        <script src="jspysch-6.2.0/plugins/jspsych-audio-button-response.js"></script>
-        <link href="jspsych-6.2.0/css/jspsych.css" rel="stylesheet" type="text/css">
-    </head>
-    <body></body>
-    <script>
+  <head>
+    <title>My experiment</title>
+    <script src="jspsych/jspsych.js"></script>
+    <script src="jspsych/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="jspsych/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jspsych/plugins/jspsych-image-button-response.js"></script>
+    <script src="jsPsych/plugins/jspsych-html-button-response.js"></script>
+    <script src="jspsych/plugins/jspsych-instructions.js"></script>
+    <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css">
+  </head>
+  <body></body>
+  <script>
 
         /* -------- Set up -------- */
          /* create timeline */
          var timeline = [];
 
          var images = [
-        // Images for buttons 
+        // Images for buttons
         'buttons/yes.png',
         'buttons/no.png',
         'buttons/a_little_surprised.png',
@@ -25,7 +28,7 @@
         'buttons/a_little_not_surprised.png',
         'buttons/very_not_surprised.png',
 
-        // Images for story 
+        // Images for story
         'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide1.png',
         'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide2.png',
         'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide3.png',
@@ -47,12 +50,12 @@
 
         var sound = [
             // Add all of the sound clips here. Also add the JsPsych input for sound to the head!
-           
+
         ];
 
         /* define welcome message trial */
         var welcome = {
-            type: "html-keyboard-response",
+            type: 'html-keyboard-response',
             stimulus: "Welcome to the experiment. Press any key to begin."
         };
         timeline.push(welcome);
@@ -70,33 +73,32 @@
         /* Practice trails - prove they understand the yes and no buttons. Add sound for the instructions. */
         var practice_yes = {
             type: 'html-button-response',
-            stimulus: ['<p>To start with we will do two practice trails.</p><p> The yes button is the big green button that says YES. Can you click the yes button? </p>',], 
-            // The line below is the one that isn't displying the buttons 
-            choices: [`<table align="center"><tr><td><img src= photos/buttons/yes.png class="button-scale-tbl"></img></td></tr>`,`<table align="center"><tr><td><img src=photos/buttons/no.png class="button-scale-tbl"></img></td></tr></table>`,],
-       
+            stimulus: '<p>To start with we will do two practice trails.</p><p> The yes button is the big green button that says YES. Can you click the yes button? </p>',
+            // The line below is the one that isn't displying the buttons
+            choices: [`<img src="photos/buttons/yes.png"></img>`,`<img src="photos/buttons/no.png"></img>`],
+
             // Make sure that the child CANNOT move on unless thay have clicked the correct button
         }
         timeline.push(practice_yes);
 
         var practice_no = {
             type: 'html-button-response',
-            stimulus:['<p> The no button is the big red button that says No. Can you click the no button? </p>',],
-            // The line below is the one that isn't displying the buttons 
-            choices: [`<table align="center"><tr><td><img src= photos/buttons/yes.png class="button-scale-tbl"></img></td></tr>`,`<table align="center"><tr><td><img src=photos/buttons/no.png class="button-scale-tbl"></img></td></tr></table>`,],
-            
-           // Make sure that the child CANNOT move on unless thay have clicked the correct button
+            stimulus: '<p> The no button is the big red button that says No. Can you click the no button? </p>',
+            // The line below is the one that isn't displying the buttons
+            choices: [`<img src="photos/buttons/yes.png"></img>`,`<img src="photos/buttons/no.png"></img>`],
+
+            // Make sure that the child CANNOT move on unless thay have clicked the correct button
         }
         timeline.push(practice_no);
-
 
         var final_instructions = {
             type: 'html-button-response',
             stimulus: ['<p> Wow good job! You will use both of these buttons to answer questions in the story.</p><p>Click YES to begin.</p>',],
-            choices: [`<table align="center"><tr><td><img src= photos/buttons/yes.png class="button-scale-tbl"></img></td></tr>`,`<table align="center"><tr><td><img src=photos/buttons/no.png class="button-scale-tbl"></img></td></tr></table>`,],
+            choices: [`<img src="photos/buttons/yes.png"></img>`,`<img src="photos/buttons/no.png"></img>`],
         }
         timeline.push(final_instructions);
 
-        /* Each slide has the same yes and no buttons to test for understanding. The last question will have different faces 
+        /* Each slide has the same yes and no buttons to test for understanding. The last question will have different faces
         on the buttons to represent 'suprised', 'not surprised', etc. Will need to add sound later!  */
 
         var part1 = {
@@ -115,8 +117,8 @@
             prompt: "This is Anna.",
             post_trial_gap: 500
         }
-        timeline.push(part2); 
-        
+        timeline.push(part2);
+
         var part3 = {
             type: 'image-button-response',
             stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide3.png',
@@ -220,7 +222,7 @@
             type: 'image-button-response',
             stimulus: 'photos/Ignorance_Condition_1_2BoxRightCorrect_190322AH/Slide12.png',
             choices: ['YES', 'NO'],
-            prompt: "Katie’s closed all the boxes.", 
+            prompt: "Katie’s closed all the boxes.",
             post_trial_gap: 500
         }
         timeline.push(part14);
@@ -251,7 +253,7 @@
             prompt: "I have a question for you. Are you surprised or not surprised that Anna looked in that box first?",
             post_trial_gap: 500
 
-            // Logic that analyses the responce so that the participant gets the follow up question that matches their responce 
+            // Logic that analyses the responce so that the participant gets the follow up question that matches their responce
         }
 
         /* Not surpriesd follow up question */
